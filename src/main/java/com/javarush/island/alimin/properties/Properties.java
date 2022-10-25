@@ -7,6 +7,13 @@ import java.util.Map;
 
 public class Properties {
 
+    /*
+    меняя константы FILL_PROBABILITY (вероятность заполнения ячейки при инициализации),
+    BORN_PROBABILITY (вероятность рождения организма при инициализации), а также
+    LOSE_WEIGHT_PERCENT (процент потери веса, в случае если животное не поело на данном такте),
+    а также остальные, можно управлять симуляцией
+     */
+
     private Properties() {
     }
     public static final int PERIOD = 1000;
@@ -18,7 +25,7 @@ public class Properties {
 
     public static final double LIFE_THREATENING_WEIGHT_LOSS_INDEX = 2.0;
 
-    public static final double LOSE_WEIGHT_PERCENT = 5;
+    public static final double LOSE_WEIGHT_PERCENT = 3;
 
     public static final Map<Types, OrganismParameters> organismProperties = new HashMap<>();
 

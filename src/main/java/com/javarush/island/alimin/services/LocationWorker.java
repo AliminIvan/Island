@@ -19,10 +19,14 @@ public class LocationWorker extends Thread {
     public LocationWorker() {
         this.location = Location.getInstance();
     }
-
+/*
+для вывода подробной статистики по каждой ячейке можно раскомментировать вызов метода
+printLocationState(), решился его закомментировать, когда модифицировал метод printStatistics(),
+но не решился удалять, на случай, если вдруг нужно наблюдать за перемещением животных
+ */
     @Override
     public void run() {
-        location.printLocationState();
+//        location.printLocationState();
         location.printStatistics();
         Cell[][] cells = location.getLocation();
         List<CellWorker> cellWorkers = new ArrayList<>();
@@ -39,7 +43,7 @@ public class LocationWorker extends Thread {
             service.shutdown();
             try {
                 if (service.awaitTermination(1, TimeUnit.DAYS)) {
-                    location.printLocationState();
+//                    location.printLocationState();
                     int size = location.printStatistics();
                     if (size <= 0) {
                         executorService.shutdown();

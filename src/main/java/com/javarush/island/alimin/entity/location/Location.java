@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@SuppressWarnings("unused")
 public class Location {
 
     private static volatile Location instance;
@@ -133,6 +134,30 @@ public class Location {
                 }
             }
         }
+        printBar(statistics);
+        printInfo(counter, statistics);
+        return statistics.size();
+    }
+
+    private void printBar(Map<String, Integer> statistics) {
+        Map<String, Integer> statisticsCopy = new HashMap<>(statistics);
+        if (statisticsCopy.size() == 0) {
+            return;
+        }
+        Map.Entry<String, Integer> maxEntry = null;
+        for (Map.Entry<String, Integer> entry : statisticsCopy.entrySet()) {
+            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
+                maxEntry = entry;
+            }
+        }
+        if (maxEntry != null) {
+            System.out.println(maxEntry.getKey() + ": " + "*".repeat(statisticsCopy.size()));
+            statisticsCopy.remove(maxEntry.getKey());
+            printBar(statisticsCopy);
+        }
+    }
+
+    private void printInfo(AtomicInteger counter, Map<String, Integer> statistics) {
         statistics.forEach((s, integer) -> counter.addAndGet(integer));
         System.out.println("Всего организмов на острове: " + counter);
         if (statistics.size() != 0) {
@@ -141,8 +166,5 @@ public class Location {
             System.out.println();
         }
         System.out.println("*".repeat(175));
-        return statistics.size();
     }
-
-
 }
